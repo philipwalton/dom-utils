@@ -2,7 +2,6 @@
   "name": "dom-utils",
   "version": "0.1.0",
   "description": "A small, modular DOM travesal and manipulation library.",
-  "main": "index.js",
   "scripts": {
     "test": "npm test"
   },
@@ -20,5 +19,13 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/philipwalton/dom-utils/issues"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-browserify": "*",
+    "grunt-mocha-phantomjs": "*",
+    "mocha": "*",
+    "chai": "*"
   }
 }
