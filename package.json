@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A small, modular DOM travesal and manipulation library.",
   "scripts": {
-    "test": "npm test"
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
