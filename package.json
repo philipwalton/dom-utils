@@ -1,0 +1,24 @@
+{
+  "name": "dom-utils",
+  "version": "0.1.0",
+  "description": "A small, modular DOM travesal and manipulation library.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:philipwalton/dom-utils.git"
+  },
+  "keywords": [
+    "dom",
+    "utility",
+    "modular",
+    "amd"
+  ],
+  "author": "Philip Walton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/philipwalton/dom-utils/issues"
+  }
+}
