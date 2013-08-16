@@ -26,6 +26,7 @@
     "grunt-browserify": "*",
     "grunt-mocha-phantomjs": "*",
     "mocha": "*",
-    "chai": "*"
+    "chai": "*",
+    "mout": "*"
   }
 }

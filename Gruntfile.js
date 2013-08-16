@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 
     browserify: {
       test: {
-        src: "test/parents-test.js",
+        src: "test/dom-utils/*-test.js",
         dest: "test/dom-utils-test.js",
       }
     },

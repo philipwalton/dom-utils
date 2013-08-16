@@ -1,4 +1,4 @@
-var parents = require("../src/parents")
+var parents = require("../../src/parents")
 
 describe("parents", function() {
   it("returns an array of all the parent elements of the passed DOM element", function() {
@@ -19,3 +19,4 @@ describe("parents", function() {
 
   })
 })
+
