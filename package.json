@@ -28,6 +28,9 @@
     "mocha": "*",
     "chai": "*",
     "mout": "*",
+    "shelljs": "*",
+    "semver": "*",
+    "colors": "*",
     "moment": "*"
   }
 }
