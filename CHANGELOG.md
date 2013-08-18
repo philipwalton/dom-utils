@@ -1,4 +1,4 @@
-### 0.1.1 (Unreleased)
+### 0.1.1 (August 18, 2013)
 
 * Add a release build script.
 
