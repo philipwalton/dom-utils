@@ -1,0 +1,63 @@
+#!/usr/bin/env node
+
+var fs = require("fs")
+  , path = require("path")
+  , shell = require("shelljs")
+  , semver = require("semver")
+  , colors = require("colors")
+  , version = determineVersion()
+
+updateJSONFiles()
+
+
+run([
+  "npm test",
+  "git checkout master",
+  "git add -A",
+  "git commit -m 'Tag version " + version + ".'",
+  "git tag " + version,
+  // "git push origin master",
+  // "git push --tags",
+  // "npm publish"
+])
+
+
+function run(commands) {
+  var command
+  while (command = commands.shift()) {
+    console.log("\n >> Running: ".grey + command + "\n")
+    if (shell.exec(command).code) {
+      console.error("\n >> Aborted due to errors trying to run: ".red + command.red + "\n")
+      shell.exit(1)
+    }
+  }
+}
+
+function updateJSONFiles() {
+  var files = ["../package.json", "../bower.json"]
+  files.forEach(function(file) {
+    var filepath = path.resolve(__dirname, file)
+    var data = JSON.parse(fs.readFileSync(filepath))
+    data.version = version
+    fs.writeFileSync(filepath, JSON.stringify(data, null, 2) + "\n")
+  })
+}
+
+
+function determineVersion() {
+  var oldVersion = JSON.parse(fs.readFileSync("./package.json"))
+    , newVersion = process.argv[2]
+  if (!newVersion) {
+    console.error("\n >> You must provide a version number.".red + "\n")
+    shell.exit(1)
+  } else if (["--major", "--minor", "--patch"].indexOf(newVersion) >= 0) {
+    newVersion = semver.inc(oldVersion, newVersion.substr(2))
+  } else {
+    newVersion = semver.parse(newVersion)
+    if (!newVersion) {
+      console.error("\n >> Version number is invalid.".red + "\n")
+      shell.exit(1)
+    }
+  }
+  return newVersion.toString()
+}
