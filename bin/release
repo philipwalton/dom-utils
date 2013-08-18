@@ -14,12 +14,12 @@ updateJSONFiles()
 run([
   "npm test",
   "git checkout master",
-  "git add -A",
-  "git commit -m 'Tag version " + version + ".'",
-  "git tag " + version,
-  "git push origin master",
-  "git push --tags",
-  "npm publish"
+  // "git add -A",
+  // "git commit -m 'Tag version " + version + ".'",
+  // "git tag " + version,
+  // "git push origin master",
+  // "git push --tags",
+  // "npm publish"
 ])
 
 function run(commands) {
@@ -62,7 +62,7 @@ function updateFiles() {
 }
 
 function determineVersion() {
-  var oldVersion = JSON.parse(fs.readFileSync("./package.json"))
+  var oldVersion = JSON.parse(fs.readFileSync("./package.json")).version
     , newVersion = process.argv[2]
   if (!newVersion) {
     error("You must provide a version number.")
