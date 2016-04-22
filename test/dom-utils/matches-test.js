@@ -3,7 +3,9 @@ var matches = require("../../src/matches")
 describe("matches", function() {
   it("returns true if a DOM element matches any of the elements or selectors in the test object", function() {
     var div = document.createElement("div")
-    div.setAttribute("foo", "FOO")
+    div.setAttribute("foo", "FOO");
+    document.body.appendChild(div);
+
     expect(matches(div, "div[foo]")).to.equal(true)
     expect(matches(div, "div[bar]")).to.equal(false)
 
@@ -17,6 +19,8 @@ describe("matches", function() {
     expect(matches(div.querySelector("em"), ["#foo", "#foo > em"])).to.equal(true)
 
     expect(matches(div, null)).to.equal(false)
+
+    document.body.removeChild(div);
   })
 })
 
