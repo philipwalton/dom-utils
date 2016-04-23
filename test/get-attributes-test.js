@@ -1,5 +1,5 @@
 var assert = require('assert');
-var getAttributes = require('../../src/get-attributes');
+var getAttributes = require('../lib/get-attributes');
 
 describe('getAttributes', function() {
 

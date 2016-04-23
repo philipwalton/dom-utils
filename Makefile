@@ -3,15 +3,13 @@ bin := ./node_modules/.bin
 all: browserify
 
 lint:
-	@ $(bin)/eslint src/**/*.js test/**/*.js
+	@ $(bin)/eslint lib/*.js test/*-test.js
 
 browserify: lint
-	@ $(bin)/browserify test/dom-utils/*.js > test/index.js
+	@ $(bin)/browserify test/*-test.js > test/index.js
 
 test: browserify
-	@ if	[ "$(CI)" = "1" ] && \
-				[ "$(SAUCE_USERNAME)" != "" ] && \
-				[ "$(SAUCE_ACCESS_KEY)" != "" ]; \
+	@ if [ "$(SAUCE_USERNAME)" != "" ] && [ "$(SAUCE_ACCESS_KEY)" != "" ]; \
 	then \
 		$(bin)/easy-sauce; \
 	else \

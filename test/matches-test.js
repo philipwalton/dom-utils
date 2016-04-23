@@ -1,5 +1,5 @@
 var assert = require('assert');
-var matches = require('../../src/matches');
+var matches = require('../lib/matches');
 
 describe('matches', function() {
 

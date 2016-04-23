@@ -1,5 +1,5 @@
 var assert = require('assert');
-var parents = require('../../src/parents');
+var parents = require('../lib/parents');
 
 describe('parents', function() {
 
