@@ -1,16 +1,33 @@
-var getAttributes = require("../../src/get-attributes")
+var assert = require('assert');
+var getAttributes = require('../../src/get-attributes');
 
-describe("getAttributes", function() {
-  it("returns an array of the element attributes, sorted alphabetically by class name", function() {
-    var div = document.createElement("div")
-    div.setAttribute("foo", "FOO")
-    div.setAttribute("bar", "BAR")
-    div.setAttribute("baz", "BAZ")
-    expect(getAttributes(div)).to.deep.equal({
-      "bar": "BAR",
-      "baz": "BAZ",
-      "foo": "FOO"
-    })
-  })
-})
+describe('getAttributes', function() {
+
+  it('returns an object representation of the element attributes', function() {
+    var div = document.createElement('div');
+    document.body.appendChild(div);
+
+    div.setAttribute('foo', 'FOO');
+    div.setAttribute('bar', 'BAR');
+    div.setAttribute('qux', 'QUX');
+    assert.deepEqual(getAttributes(div), {
+      'foo': 'FOO',
+      'bar': 'BAR',
+      'qux': 'QUX'
+    });
+
+    document.body.removeChild(div);
+  });
+
+
+  it('returns an empty object when there are no attributes', function() {
+    var div = document.createElement('div');
+    document.body.appendChild(div);
+
+    assert.deepEqual(getAttributes(div), {});
+
+    document.body.removeChild(div);
+  });
+
+});
 

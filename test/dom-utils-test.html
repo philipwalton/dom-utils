@@ -1,25 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Mocha Tests</title>
-    <link id="mocha-css" href="../node_modules/mocha/mocha.css" rel="stylesheet" />
-  </head>
-  <body>
-      <div id="mocha"></div>
-      <script src="../node_modules/mocha/mocha.js"></script>
-      <script src="../node_modules/chai/chai.js"></script>
-      <script>
-        mocha.ui('bdd')
-        expect = chai.expect
-      </script>
-      <script src="dom-utils-test.js"></script>
-      <script>
-        if (window.mochaPhantomJS) {
-          mochaPhantomJS.run()
-        } else {
-          mocha.run()
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link id="mocha-css" href="../node_modules/mocha/mocha.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="mocha"></div>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script>mocha.ui('bdd');</script>
+  <script src="../_tmp/dom-utils-test.js"></script>
+
+  <script>
+    var runner = mocha.run();
+    var failedTests = [];
+
+    runner.on('end', function(){
+      window.mochaResults = runner.stats;
+      window.mochaResults.reports = failedTests;
+    });
+
+    runner.on('fail', function(test, err){
+
+      var flattenTitles = function(test){
+        var titles = [];
+        while (test.parent.title){
+          titles.push(test.parent.title);
+          test = test.parent;
         }
-      </script>
-  </body>
+        return titles.reverse();
+      };
+
+      failedTests.push({
+        name: test.title,
+        result: false,
+        message: err.message,
+        stack: err.stack,
+        titles: flattenTitles(test)
+      });
+
+    });
+  </script>
+</body>
 </html>

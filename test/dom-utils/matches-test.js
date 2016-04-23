@@ -1,26 +1,65 @@
-var matches = require("../../src/matches")
+var assert = require('assert');
+var matches = require('../../src/matches');
 
-describe("matches", function() {
-  it("returns true if a DOM element matches any of the elements or selectors in the test object", function() {
-    var div = document.createElement("div")
-    div.setAttribute("foo", "FOO");
-    document.body.appendChild(div);
+describe('matches', function() {
 
-    expect(matches(div, "div[foo]")).to.equal(true)
-    expect(matches(div, "div[bar]")).to.equal(false)
+  var fixtures = document.createElement('div');
+  fixtures.id = 'fixtures';
 
-    expect(matches(document.body, ["html", "html > body"])).to.equal(true)
-    expect(matches(document.body, [".body", ".html", "p"])).to.equal(false)
 
-    div.innerHTML = "<p id='foo'>foo <em>bar</em></p>"
-    expect(matches(div.querySelector("em"), ["#foo", "#foo > em"])).to.equal(true)
-    expect(matches(div.querySelector("em"), [document.documentElement, document.body])).to.equal(false)
+  beforeEach(function() {
+    document.body.appendChild(fixtures);
+  });
 
-    expect(matches(div.querySelector("em"), ["#foo", "#foo > em"])).to.equal(true)
 
-    expect(matches(div, null)).to.equal(false)
+  afterEach(function() {
+    fixtures.innerHTML = '';
+  });
 
-    document.body.removeChild(div);
-  })
-})
 
+  after(function() {
+    document.body.removeChild(fixtures);
+  });
+
+
+  it('works testing against a CSS selector', function() {
+    fixtures.innerHTML = '<div id="foo" class="bar"></div>';
+    var div = document.getElementById('foo');
+
+    assert(matches(div, 'div'));
+    assert(matches(div, '#foo'));
+    assert(matches(div, 'body .bar'));
+
+    assert(!matches(div, 'p'));
+    assert(!matches(div, '#bar'));
+  });
+
+
+  it('works testing against a DOM element', function() {
+    fixtures.innerHTML = '<div id="foo" class="bar"></div>';
+    var div = document.getElementById('foo');
+
+    assert(matches(div, fixtures.childNodes[0]));
+    assert(!matches(div, fixtures));
+  });
+
+
+  it('works testing against a list of selectors and elements', function() {
+    fixtures.innerHTML = '<div class="foo"><p id="bar"></p></div>';
+    var p = document.getElementById('bar');
+
+    assert(matches(p, ['#bar']));
+    assert(matches(p, ['html', 'body', 'p']));
+    assert(matches(p, ['#fixtures, p', document, document.body]));
+    assert(matches(p, [fixtures, '.foo > #bar']));
+
+    assert(!matches(p, ['html', 'body', fixtures]));
+    assert(!matches(p, [document.body, 'span']));
+  });
+
+
+  it('handles falsy inputs gracefully', function() {
+    assert(!matches(fixtures, null));
+  });
+
+});

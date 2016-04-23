@@ -1,22 +1,39 @@
-var parents = require("../../src/parents")
+var assert = require('assert');
+var parents = require('../../src/parents');
 
-describe("parents", function() {
-  it("returns an array of all the parent elements of the passed DOM element", function() {
-    var rents
-      , div = document.createElement("div")
-    expect(parents(div)).to.deep.equal([])
+describe('parents', function() {
 
-    div.innerHTML = "<p id='foo'><span>foo <em>bar</em><span></p>"
-    rents = parents(div.querySelector("em"))
-    expect(rents.length).to.equal(3)
-    expect(rents[0].nodeName.toLowerCase()).to.equal("span")
-    expect(rents[1].nodeName.toLowerCase()).to.equal("p")
-    expect(rents[2]).to.equal(div)
+  it('returns an array of a DOM elements parent elements', function() {
+    var fixtures = document.createElement('div');
+    fixtures.id = 'fixtures';
+    document.body.appendChild(fixtures);
 
-    expect(parents(document.querySelector("body > *")).length).to.equal(2)
-    expect(parents(document.querySelector("body > *"))[0]).to.equal(document.body)
-    expect(parents(document.querySelector("body > *"))[1]).to.equal(document.documentElement)
+    fixtures.innerHTML = '<p id="p"><em id="em"><sup id="sup"></sup><em></p>';
+    var p = document.getElementById('p');
+    var em = document.getElementById('em');
+    var sup = document.getElementById('sup');
 
-  })
-})
+    assert.deepEqual(parents(sup), [
+      em,
+      p,
+      fixtures,
+      document.body,
+      document.documentElement
+    ]);
+
+    document.body.removeChild(fixtures);
+  });
+
+
+  it('returns an empty array if no parents exist', function() {
+    assert.deepEqual(parents(document.documentElement), []);
+    assert.deepEqual(parents(document.createElement('div')), []);
+  });
+
+
+  it('handles falsy input gracefully', function() {
+    assert.deepEqual(parents(null), []);
+  });
+
+});
 

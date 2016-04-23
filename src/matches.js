@@ -1,58 +1,52 @@
-var toArray = require("mout/lang/toArray")
+var proto = Element.prototype;
+var nativeMatches = proto.matches ||
+    proto.matchesSelector ||
+    proto.webkitMatchesSelector ||
+    proto.mozMatchesSelector ||
+    proto.msMatchesSelector ||
+    proto.oMatchesSelector;
+
 
 /**
- * Detects the browser's native matches() implementation
- * and calls that. Error if not found.
+ * Tests whether a DOM element matches a selector. This polyfills the native
+ * Element.prototype.matches method across browsers.
+ * @param {Element} element The DOM element to test.
+ * @param {string} selector The CSS selector to test element against.
+ * @return {boolean} True if the selector matches.
  */
-function matchesSelector(element, selector) {
-  var i = 0
-    , method
-    , methods = [
-        "matches",
-        "matchesSelector",
-        "webkitMatchesSelector",
-        "mozMatchesSelector",
-        "msMatchesSelector",
-        "oMatchesSelector"
-      ]
-  while (method = methods[i++]) {
-    if (typeof element[method] == "function")
-      return element[method](selector)
+ function matchesSelector(element, selector) {
+  if (typeof selector != 'string') return false;
+  if (nativeMatches) return nativeMatches.call(element, selector);
+  var nodes = element.parentNode.querySelectorAll(selector);
+  for (var i = 0, node; node = nodes[i]; i++) {
+    if (node == element) return true;
   }
-  throw new Error("You are using a browser that doesn't not support"
-    + " element.matches() or element.matchesSelector()")
+  return false;
 }
+
 
 /**
- * Similar to jQuery's .is() method
- * Accepts a DOM element and an object to test against
- *
- * The test object can be a DOM element, a string selector, an array of
- * DOM elements or string selectors.
- *
- * Returns true if the element matches any part of the test
+ * Tests if a DOM elements matches any of the test DOM elements or selectors.
+ * @param {Element} element The DOM element to test.
+ * @param {Element|string|Array<Element|String>} test A DOM element, a CSS
+ *     selector, or an array of DOM elements or CSS selectors to match against.
+ * @return {boolean} True of any part of the test matches.
  */
-function matches(element, test) {
-  // test can be null, but if it is, it never matches
-  if (test == null) {
-    return false
-  }
-  // if test is a string or DOM element convert it to an array,
-  else if (typeof test == "string" || test.nodeType) {
-    test = [test]
-  }
-  // if it has a length property call toArray in case it's array-like
-  else if ("length" in test) {
-    test = toArray(test)
-  }
+module.exports = function matches(element, test) {
+  // Never match a falsy test object, but don't error either.
+  if (!test) return false;
 
-  return test.some(function(item) {
-    if (typeof item == "string")
-      return matchesSelector(element, item)
-    else
-      return element === item
-  })
-}
-
-module.exports = matches
-
+  // if test is a string or DOM element test it.
+  if (typeof test == 'string' || test.nodeType == 1) {
+    return element == test || matchesSelector(element, test);
+  }
+  // if it has a length property iterate over the items
+  // and return true if any match.
+  else if ('length' in test) {
+    for (var i = 0, item; item = test[i]; i++) {
+      if (element == item || matchesSelector(element, item)) return true;
+    }
+  }
+  // Still here? Return false
+  return false;
+};

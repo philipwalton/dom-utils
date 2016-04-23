@@ -3,11 +3,12 @@
   "version": "0.1.1",
   "description": "A small, modular DOM travesal and manipulation library.",
   "scripts": {
+    "clean": "rm -rf _tmp",
     "lint": "eslint src/**/*.js test/**/*.js",
-    "bundle": "npm run lint && browserify test/dom-utils/*.js > test/dom-utils-test.js",
+    "bundle": "npm run lint && mkdir -p _tmp && browserify test/dom-utils/*.js > _tmp/dom-utils-test.js",
     "test:local": "npm run bundle && mocha-phantomjs test/dom-utils-test.html",
     "test:cloud": "npm run bundle && bin/saucelabs",
-    "test": "npm run test:local"
+    "test": "npm run test:local && npm run test:cloud && npm run clean"
   },
   "repository": {
     "type": "git",

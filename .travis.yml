@@ -1,5 +1,9 @@
+---
 language: node_js
 node_js:
-  - "0.10"
-before_script:
-  - npm install -g grunt-cli
+  - "5"
+
+env:
+  global:
+    - SAUCE_USERNAME=dom-utils
+    - SAUCE_ACCESS_KEY=58245a9c-6ee8-4daa-ae0b-5ad2b2a5d548
