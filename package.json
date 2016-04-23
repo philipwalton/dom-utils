@@ -3,7 +3,11 @@
   "version": "0.1.1",
   "description": "A small, modular DOM travesal and manipulation library.",
   "scripts": {
-    "test": "grunt test"
+    "lint": "eslint src/**/*.js test/**/*.js",
+    "bundle": "npm run lint && browserify test/dom-utils/*.js > test/dom-utils-test.js",
+    "test:local": "npm run bundle && mocha-phantomjs test/dom-utils-test.html",
+    "test:cloud": "npm run bundle && bin/saucelabs",
+    "test": "npm run test:local"
   },
   "repository": {
     "type": "git",
@@ -21,16 +25,10 @@
     "url": "https://github.com/philipwalton/dom-utils/issues"
   },
   "devDependencies": {
-    "grunt": "*",
-    "grunt-contrib-jshint": "*",
-    "grunt-browserify": "*",
-    "grunt-mocha-phantomjs": "*",
-    "mocha": "*",
-    "chai": "*",
-    "mout": "*",
-    "shelljs": "*",
-    "semver": "*",
-    "colors": "*",
-    "moment": "*"
+    "browserify": "^13.0.0",
+    "eslint": "^2.8.0",
+    "mocha": "^2.4.5",
+    "mocha-phantomjs": "^4.0.2",
+    "request-promise": "^3.0.0"
   }
 }
