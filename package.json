@@ -25,7 +25,8 @@
     "easy-sauce": "^0.2.0",
     "eslint": "^2.8.0",
     "mocha": "^2.4.5",
-    "mocha-phantomjs": "^4.0.2"
+    "mocha-phantomjs": "^4.0.2",
+    "sinon": "^1.17.3"
   },
   "easySauce": {
     "path": "/test/",
