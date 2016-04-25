@@ -1,7 +1,7 @@
 {
   "name": "dom-utils",
-  "version": "0.1.1",
-  "description": "A small, modular DOM travesal and manipulation library.",
+  "version": "0.2.0",
+  "description": "A small, modular DOM utilities library",
   "scripts": {
     "test": "make test"
   },
