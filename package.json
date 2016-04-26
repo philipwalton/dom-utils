@@ -76,6 +76,16 @@
         "Windows XP",
         "internet explorer",
         "8"
+      ],
+      [
+        "OS X 10.10",
+        "iPhone",
+        "9.2"
+      ],
+      [
+        "Linux",
+        "android",
+        "4.4"
       ]
     ]
   }
