@@ -1,3 +1,10 @@
+Changelog
+=========
+
+### 0.2.1 (April 25, 2016)
+
+* Fix the handling of invalid inputs
+
 ### 0.2.0 (April 24, 2016)
 
 * Rename the `src` directory to `lib`
