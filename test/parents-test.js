@@ -31,8 +31,10 @@ describe('parents', function() {
   });
 
 
-  it('handles falsy input gracefully', function() {
+  it('handles invalid input gracefully', function() {
+    assert.deepEqual(parents(), []);
     assert.deepEqual(parents(null), []);
+    assert.deepEqual(parents(document), []);
   });
 
 });

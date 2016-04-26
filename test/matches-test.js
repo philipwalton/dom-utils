@@ -58,8 +58,10 @@ describe('matches', function() {
   });
 
 
-  it('handles falsy inputs gracefully', function() {
+  it('handles invalid inputs gracefully', function() {
+    assert(!matches());
     assert(!matches(fixtures, null));
+    assert(!matches(document, '*'));
   });
 
 });

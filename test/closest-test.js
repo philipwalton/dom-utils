@@ -55,10 +55,11 @@ describe('closest', function() {
   });
 
 
-  it('handles falsy inputs gracefully', function() {
+  it('handles invalid inputs gracefully', function() {
     assert(!closest());
     assert(!closest(null, 'div'));
     assert(!closest(document.body));
+    assert(!closest(document, '*'));
   });
 
 });

@@ -29,5 +29,12 @@ describe('getAttributes', function() {
     document.body.removeChild(div);
   });
 
+
+  it('handles invalid inputs gracefully', function() {
+    assert.deepEqual(getAttributes(), {});
+    assert.deepEqual(getAttributes(null), {});
+    assert.deepEqual(getAttributes(document), {});
+  });
+
 });
 
