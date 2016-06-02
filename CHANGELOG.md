@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 0.2.2 (June 2, 2016)
+
+* Fix a default port bug
+
 ### 0.2.1 (April 25, 2016)
 
 * Fix the handling of invalid inputs

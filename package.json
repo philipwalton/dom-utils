@@ -1,6 +1,6 @@
 {
   "name": "dom-utils",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A small, modular DOM utilities library",
   "scripts": {
     "test": "make test"
