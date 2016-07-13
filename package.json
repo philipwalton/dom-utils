@@ -22,15 +22,13 @@
   },
   "devDependencies": {
     "browserify": "^13.0.0",
-    "easy-sauce": "^0.2.0",
-    "eslint": "^2.8.0",
+    "easy-sauce": "^0.3.4",
+    "eslint": "^3.0.1",
     "mocha": "^2.4.5",
     "mocha-phantomjs": "^4.0.2",
     "sinon": "^1.17.3"
   },
   "easySauce": {
-    "path": "/test/",
-    "port": "8080",
     "platforms": [
       [
         "Windows 10",
