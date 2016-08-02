@@ -1,6 +1,6 @@
 {
   "name": "dom-utils",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "A small, modular DOM utilities library",
   "scripts": {
     "test": "make test"
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "browserify": "^13.0.0",
-    "easy-sauce": "^0.3.4",
+    "easy-sauce": "^0.3.5",
     "eslint": "^3.0.1",
     "mocha": "^2.4.5",
     "mocha-phantomjs": "^4.0.2",
