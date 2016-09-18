@@ -1,6 +1,11 @@
 Changelog
 =========
 
+### 0.4.0 (September 18, 2016)
+
+* Switch to use Event initDict defaults in dispatch
+* Rename deep to composed per the spec change
+
 ### 0.3.1 (September 18, 2016)
 
 * Add support for `path` in addition to `deepPath`
