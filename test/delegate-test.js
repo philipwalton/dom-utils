@@ -171,16 +171,16 @@ describe('delegate', function() {
   it('can delegate to elements inside a shadow tree', function() {
 
     // Skips this test in unsupporting browsers.
-    if (!('deepPath' in Event.prototype)) this.skip();
+    if (!('composedPath' in Event.prototype)) this.skip();
 
     afixShadowDom();
 
     var spy1 = sinon.spy();
     var spy2 = sinon.spy();
     var d1 = delegate(div, 'click', 'p', spy1);
-    var d2 = delegate(div, 'click', 'p', spy2, {deep: true});
+    var d2 = delegate(div, 'click', 'p', spy2, {composed: true});
 
-    dispatch(em, 'click', {bubbles: true, cancelable: true});
+    dispatch(em, 'click', {bubbles: true, cancelable: true, composed: true});
 
     assert(!spy1.called);
     assert(spy2.calledOnce);
