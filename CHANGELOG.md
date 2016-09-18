@@ -1,6 +1,14 @@
 Changelog
 =========
 
+### 0.3.1 (September 18, 2016)
+
+* Add support for `path` in addition to `deepPath`
+
+### 0.3.0 (August 2, 2016)
+
+* Add explicit `window` namespace to `Element`
+
 ### 0.2.2 (June 2, 2016)
 
 * Fix a default port bug
