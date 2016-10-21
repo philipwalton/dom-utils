@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 0.4.1 (October 21, 2016)
+
+* Fix IE parseUrl bug for relative paths
+
 ### 0.4.0 (September 18, 2016)
 
 * Switch to use Event initDict defaults in dispatch
