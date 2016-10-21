@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "browserify": "^13.0.0",
-    "easy-sauce": "^0.3.5",
+    "easy-sauce": "^0.4.0",
     "eslint": "^3.0.1",
     "mocha": "^2.4.5",
     "mocha-phantomjs": "^4.0.2",
