@@ -1,28 +1,16 @@
-var assert = require('assert');
-var closest = require('../lib/closest');
+import assert from 'assert';
+import closest from '../lib/closest';
 
-describe('closest', function() {
 
-  var fixtures = document.createElement('div');
+describe('closest', () => {
+  const fixtures = document.createElement('div');
   fixtures.id = 'fixtures';
 
+  beforeEach(() => document.body.appendChild(fixtures));
+  afterEach(() => fixtures.innerHTML = '');
+  after(() => document.body.removeChild(fixtures));
 
-  beforeEach(function() {
-    document.body.appendChild(fixtures);
-  });
-
-
-  afterEach(function() {
-    fixtures.innerHTML = '';
-  });
-
-
-  after(function() {
-    document.body.removeChild(fixtures);
-  });
-
-
-  it('should find a matching parent from a CSS selector', function() {
+  it('should find a matching parent from a CSS selector', () => {
     fixtures.innerHTML =
         '<div id="div">' +
         '  <p id="p">' +
@@ -30,9 +18,9 @@ describe('closest', function() {
         '  </p>' +
         '</div>';
 
-    var div = document.getElementById('div');
-    var p = document.getElementById('p');
-    var em = document.getElementById('em');
+    const div = document.getElementById('div');
+    const p = document.getElementById('p');
+    const em = document.getElementById('em');
 
     assert.equal(closest(em, 'p'), p);
     assert.equal(closest(em, '#div'), div);
@@ -41,12 +29,11 @@ describe('closest', function() {
     assert(!closest(em, '#nomatch'));
   });
 
-
-  it('should test the element itself if the third args is true', function() {
+  it('should test the element itself if the third args is true', () => {
     fixtures.innerHTML = '<p id="p"><em id="em"></em></p>';
 
-    var p = document.getElementById('p');
-    var em = document.getElementById('em');
+    const p = document.getElementById('p');
+    const em = document.getElementById('em');
 
     assert(!closest(em, 'em'));
     assert.equal(closest(em, 'em', true), em);
@@ -54,12 +41,10 @@ describe('closest', function() {
     assert.equal(closest(p, 'p', true), p);
   });
 
-
-  it('handles invalid inputs gracefully', function() {
+  it('handles invalid inputs gracefully', () => {
     assert(!closest());
     assert(!closest(null, 'div'));
     assert(!closest(document.body));
     assert(!closest(document, '*'));
   });
-
 });

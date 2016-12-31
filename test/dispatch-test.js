@@ -1,15 +1,18 @@
-var assert = require('assert');
-var sinon = require('sinon');
-var dispatch = require('../lib/dispatch');
+import assert from 'assert';
+import sinon from 'sinon';
+import dispatch from '../lib/dispatch';
+
+
+/* eslint no-invalid-this: 0 */
+// NOTE: this use of this.skip() prevents usage of arrow functions in tests.
+
 
 describe('dispatch', function() {
-
   it('triggers an event on the passed DOM element', function() {
-
     // Skips this test in unsupporting browsers.
     if (!document.createEvent) this.skip();
 
-    var spy = sinon.spy();
+    const spy = sinon.spy();
     document.addEventListener('click', spy);
 
     dispatch(document, 'click');
@@ -20,11 +23,10 @@ describe('dispatch', function() {
   });
 
   it('supports specifying event attributes via an optional object', function() {
-
     // Skips this test in unsupporting browsers.
     if (!document.createEvent) this.skip();
 
-    var spy = sinon.spy(function(event) {
+    const spy = sinon.spy(function(event) {
       assert(event.bubbles);
       assert(event.cancelable);
     });
@@ -40,13 +42,11 @@ describe('dispatch', function() {
     document.removeEventListener('click', spy);
   });
 
-
   it('supports passing data via the detail property', function() {
-
     // Skips this test in unsupporting browsers.
     if (!document.createEvent) this.skip();
 
-    var spy = sinon.spy();
+    const spy = sinon.spy();
     document.addEventListener('click', spy);
 
     dispatch(document, 'click', {detail: {foo: 'bar'}});
@@ -57,13 +57,11 @@ describe('dispatch', function() {
     document.removeEventListener('click', spy);
   });
 
-
   it('supports specifying the event constructor', function() {
-
     // Skips this test in unsupporting browsers.
     if (!document.createEvent) this.skip();
 
-    var spy = sinon.spy();
+    const spy = sinon.spy();
     document.addEventListener('click', spy);
 
     dispatch(document, 'click', 'MouseEvent');
@@ -74,15 +72,13 @@ describe('dispatch', function() {
     document.removeEventListener('click', spy);
   });
 
-
   it('returns the value of element.dispatchEvent', function() {
-
     // Skips this test in unsupporting browsers.
     if (!document.createEvent) this.skip();
 
     assert(dispatch(document, 'click', {cancelable: true}));
 
-    var spy = sinon.spy(function(event) {
+    const spy = sinon.spy(function(event) {
       event.preventDefault();
     });
     document.addEventListener('click', spy);
@@ -91,5 +87,4 @@ describe('dispatch', function() {
 
     document.removeEventListener('click', spy);
   });
-
 });

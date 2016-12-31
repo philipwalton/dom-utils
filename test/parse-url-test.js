@@ -1,11 +1,10 @@
-var assert = require('assert');
-var parseUrl = require('../lib/parse-url');
+import assert from 'assert';
+import parseUrl from '../lib/parse-url';
 
-describe('parseUrl', function() {
 
-  it('parses the a URL and returns a location-like object', function() {
-
-    var url = parseUrl(
+describe('parseUrl', () => {
+  it('parses the a URL and returns a location-like object', () => {
+    const url = parseUrl(
         'https://www.example.com:1234/path/to/file.html?a=b&c=d#hash');
 
     assert.deepEqual(url, {
@@ -20,14 +19,12 @@ describe('parseUrl', function() {
       port: '1234',
       protocol: 'https:',
       query: 'a=b&c=d',
-      search: '?a=b&c=d'
+      search: '?a=b&c=d',
     });
   });
 
-
-  it('parses a sparse URL', function() {
-
-    var url = parseUrl('http://example.com');
+  it('parses a sparse URL', () => {
+    const url = parseUrl('http://example.com');
 
     assert.deepEqual(url, {
       fragment: '',
@@ -41,14 +38,12 @@ describe('parseUrl', function() {
       port: '',
       protocol: 'http:',
       query: '',
-      search: ''
+      search: '',
     });
   });
 
-
-  it('parses URLs relative to the root', function() {
-
-    var url = parseUrl('/path/to/file.html?a=b&c=d#hash');
+  it('parses URLs relative to the root', () => {
+    const url = parseUrl('/path/to/file.html?a=b&c=d#hash');
 
     // Specified portions of the URL.
     assert.equal(url.fragment, 'hash');
@@ -65,19 +60,17 @@ describe('parseUrl', function() {
     assert.equal(url.protocol, location.protocol);
 
     // Not all browsers support the `origin` property, so we derive it.
-    var origin = location.origin || location.protocol + '//' + location.host;
+    const origin = location.origin || location.protocol + '//' + location.host;
     assert.equal(url.origin, origin);
   });
 
-
-  it('parses URLs relative to the file', function() {
-
+  it('parses URLs relative to the file', () => {
     // Assumes the tests are hosted at `/test/`;
-    var url = parseUrl('../path/to/file.html?a=b&c=d#hash');
+    const url = parseUrl('../path/to/file.html?a=b&c=d#hash');
 
     // Manually calculate the pathname since these tests run on servers as well
     // as using the file protocol.
-    var pathname = location.pathname
+    const pathname = location.pathname
         .replace(/test\/(index\.html)?/, '') + 'path/to/file.html';
 
     // Specified portions of the URL.
@@ -95,37 +88,34 @@ describe('parseUrl', function() {
     assert.equal(url.protocol, location.protocol);
 
     // Not all browsers support the `origin` property, so we derive it.
-    var origin = location.origin || location.protocol + '//' + location.host;
+    const origin = location.origin || location.protocol + '//' + location.host;
     assert.equal(url.origin, origin);
   });
 
 
-  it('should resolve various relative path types', function() {
-
-    var url1 = parseUrl('.');
+  it('should resolve various relative path types', () => {
+    const url1 = parseUrl('.');
     assert.equal(url1.pathname, location.pathname);
 
-    var url2 = parseUrl('..');
+    const url2 = parseUrl('..');
     assert.equal(url2.pathname,
         location.pathname.replace(/test\/(index.html)?$/, ''));
 
-    var url3 = parseUrl('./foobar.html');
+    const url3 = parseUrl('./foobar.html');
     assert.equal(url3.pathname,
         location.pathname.replace(/(index.html)?$/, 'foobar.html'));
 
-    var url4 = parseUrl('../foobar.html');
+    const url4 = parseUrl('../foobar.html');
     assert.equal(url4.pathname,
         location.pathname.replace(/test\/(index.html)?$/, 'foobar.html'));
 
-    var url5 = parseUrl('.../foobar.html');
+    const url5 = parseUrl('.../foobar.html');
     assert.equal(url5.pathname,
         location.pathname.replace('index.html', '') + '.../foobar.html');
   });
 
-
-  it('parses the current URL when given a falsy value', function() {
-
-    var url = parseUrl();
+  it('parses the current URL when given a falsy value', () => {
+    const url = parseUrl();
 
     // Assumes the tests are hosted at `/test/`;
     assert.equal(url.fragment, '');
@@ -142,11 +132,10 @@ describe('parseUrl', function() {
     assert.equal(url.protocol, location.protocol);
 
     // Not all browsers support the `origin` property, so we derive it.
-    var origin = location.origin || location.protocol + '//' + location.host;
+    const origin = location.origin || location.protocol + '//' + location.host;
     assert.equal(url.origin, origin);
 
     assert.deepEqual(url, parseUrl(null));
     assert.deepEqual(url, parseUrl(''));
   });
-
 });

@@ -6,7 +6,7 @@ lint:
 	@ $(bin)/eslint lib/*.js test/*-test.js
 
 browserify: lint
-	@ $(bin)/browserify test/*-test.js > test/index.js
+	@ $(bin)/browserify test/*-test.js -t [ babelify ] > test/index.js
 
 test: browserify
 	@ if [ "$(SAUCE_USERNAME)" != "" ] && [ "$(SAUCE_ACCESS_KEY)" != "" ]; \

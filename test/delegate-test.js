@@ -1,17 +1,19 @@
-var assert = require('assert');
-var sinon = require('sinon');
-var delegate = require('../lib/delegate');
-var dispatch = require('../lib/dispatch');
+import assert from 'assert';
+import sinon from 'sinon';
+import delegate from '../lib/delegate';
+import dispatch from '../lib/dispatch';
+
+
+/* eslint no-invalid-this: 0 */
+// NOTE: this use of this.skip() prevents usage of arrow functions in tests.
 
 describe('delegate', function() {
-
-  var fixtures = document.createElement('div');
+  const fixtures = document.createElement('div');
   fixtures.id = 'fixtures';
 
-  var div;
-  var p;
-  var em;
-
+  let div;
+  let p;
+  let em;
 
   /**
    * Adds the structure div > p > em as light DOM inside the fixture element.
@@ -29,7 +31,6 @@ describe('delegate', function() {
     em = document.getElementById('em');
   }
 
-
   /**
    * Adds the structure div > p > em as shadow DOM inside the fixture element.
    */
@@ -43,11 +44,9 @@ describe('delegate', function() {
     em = div.shadowRoot.querySelector('em');
   }
 
-
   beforeEach(function() {
     document.body.appendChild(fixtures);
   });
-
 
   afterEach(function() {
     div = null;
@@ -56,21 +55,18 @@ describe('delegate', function() {
     fixtures.innerHTML = '';
   });
 
-
   after(function() {
     document.body.removeChild(fixtures);
   });
 
-
   it('delegates the handling of events to an ancestor element', function() {
-
     // Skips this test in unsupporting browers.
     if (!Element.prototype.addEventListener) this.skip();
 
     afixLightDom();
 
-    var spy = sinon.spy();
-    var d = delegate(div, 'click', 'p', spy);
+    const spy = sinon.spy();
+    const d = delegate(div, 'click', 'p', spy);
     dispatch(em, 'click', {bubbles: true, cancelable: true});
 
     assert(spy.calledOnce);
@@ -78,16 +74,14 @@ describe('delegate', function() {
     d.destroy();
   });
 
-
   it('invokes the callback with the event and delegate target', function() {
-
     // Skips this test in unsupporting browers.
     if (!Element.prototype.addEventListener) this.skip();
 
     afixLightDom();
 
-    var spy = sinon.spy();
-    var d = delegate(div, 'click', 'p', spy);
+    const spy = sinon.spy();
+    const d = delegate(div, 'click', 'p', spy);
     dispatch(em, 'click', {bubbles: true, cancelable: true});
 
     // PhantomJS and Safari don't work with sinon.match.instanceOf(Event), so
@@ -99,16 +93,14 @@ describe('delegate', function() {
     d.destroy();
   });
 
-
   it('binds the calback to the delegate target', function() {
-
     // Skips this test in unsupporting browers.
     if (!Element.prototype.addEventListener) this.skip();
 
     afixLightDom();
 
-    var spy = sinon.spy();
-    var d = delegate(div, 'click', 'p', spy);
+    const spy = sinon.spy();
+    const d = delegate(div, 'click', 'p', spy);
     dispatch(em, 'click', {bubbles: true, cancelable: true});
 
     assert(spy.getCall(0).thisValue, em);
@@ -116,16 +108,14 @@ describe('delegate', function() {
     d.destroy();
   });
 
-
   it('returns an object with a destroy method', function() {
-
     // Skips this test in unsupporting browers.
     if (!Element.prototype.addEventListener) this.skip();
 
     afixLightDom();
 
-    var spy = sinon.spy();
-    var d = delegate(div, 'click', 'p', spy);
+    const spy = sinon.spy();
+    const d = delegate(div, 'click', 'p', spy);
     dispatch(em, 'click', {bubbles: true, cancelable: true});
 
     assert(spy.calledOnce);
@@ -138,18 +128,16 @@ describe('delegate', function() {
     assert(spy.calledTwice);
   });
 
-
   it('can optionally bind to the event capture phase', function() {
-
     // Skips this test in unsupporting browers.
     if (!Element.prototype.addEventListener) this.skip();
 
     afixLightDom();
 
-    var spy1 = sinon.spy();
-    var spy2 = sinon.spy();
-    var d1 = delegate(document, 'click', 'p', spy1);
-    var d2 = delegate(document, 'click', 'p', spy2, {useCapture: true});
+    const spy1 = sinon.spy();
+    const spy2 = sinon.spy();
+    const d1 = delegate(document, 'click', 'p', spy1);
+    const d2 = delegate(document, 'click', 'p', spy2, {useCapture: true});
 
     // Stops the event in the bubble phase.
     div.addEventListener('click', function(event) {
@@ -164,21 +152,19 @@ describe('delegate', function() {
     d2.destroy();
   });
 
-
   // TODO(philipwalton): at the moment this test doesn't work in any
   // browser because events triggered via JavaScript do not seem to buble
   // outside of the shadow root.
   it('can delegate to elements inside a shadow tree', function() {
-
     // Skips this test in unsupporting browsers.
     if (!('composedPath' in Event.prototype)) this.skip();
 
     afixShadowDom();
 
-    var spy1 = sinon.spy();
-    var spy2 = sinon.spy();
-    var d1 = delegate(div, 'click', 'p', spy1);
-    var d2 = delegate(div, 'click', 'p', spy2, {composed: true});
+    const spy1 = sinon.spy();
+    const spy2 = sinon.spy();
+    const d1 = delegate(div, 'click', 'p', spy1);
+    const d2 = delegate(div, 'click', 'p', spy2, {composed: true});
 
     dispatch(em, 'click', {bubbles: true, cancelable: true, composed: true});
 
@@ -188,5 +174,4 @@ describe('delegate', function() {
     d1.destroy();
     d2.destroy();
   });
-
 });

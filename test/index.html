@@ -15,13 +15,12 @@
     var runner = mocha.run();
     var failedTests = [];
 
-    runner.on('end', function(){
+    runner.on('end', function() {
       window.mochaResults = runner.stats;
       window.mochaResults.reports = failedTests;
     });
 
     runner.on('fail', function(test, err){
-
       var flattenTitles = function(test){
         var titles = [];
         while (test.parent.title){
@@ -38,7 +37,6 @@
         stack: err.stack,
         titles: flattenTitles(test)
       });
-
     });
   </script>
 </body>

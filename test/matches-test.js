@@ -1,30 +1,18 @@
-var assert = require('assert');
-var matches = require('../lib/matches');
+import assert from 'assert';
+import matches from '../lib/matches';
 
-describe('matches', function() {
 
-  var fixtures = document.createElement('div');
+describe('matches', () => {
+  const fixtures = document.createElement('div');
   fixtures.id = 'fixtures';
 
+  beforeEach(() => document.body.appendChild(fixtures));
+  afterEach(() => fixtures.innerHTML = '');
+  after(() => document.body.removeChild(fixtures));
 
-  beforeEach(function() {
-    document.body.appendChild(fixtures);
-  });
-
-
-  afterEach(function() {
-    fixtures.innerHTML = '';
-  });
-
-
-  after(function() {
-    document.body.removeChild(fixtures);
-  });
-
-
-  it('works testing against a CSS selector', function() {
+  it('works testing against a CSS selector', () => {
     fixtures.innerHTML = '<div id="foo" class="bar"></div>';
-    var div = document.getElementById('foo');
+    const div = document.getElementById('foo');
 
     assert(matches(div, 'div'));
     assert(matches(div, '#foo'));
@@ -34,19 +22,17 @@ describe('matches', function() {
     assert(!matches(div, '#bar'));
   });
 
-
-  it('works testing against a DOM element', function() {
+  it('works testing against a DOM element', () => {
     fixtures.innerHTML = '<div id="foo" class="bar"></div>';
-    var div = document.getElementById('foo');
+    const div = document.getElementById('foo');
 
     assert(matches(div, fixtures.childNodes[0]));
     assert(!matches(div, fixtures));
   });
 
-
-  it('works testing against a list of selectors and elements', function() {
+  it('works testing against a list of selectors and elements', () => {
     fixtures.innerHTML = '<div class="foo"><p id="bar"></p></div>';
-    var p = document.getElementById('bar');
+    const p = document.getElementById('bar');
 
     assert(matches(p, ['#bar']));
     assert(matches(p, ['html', 'body', 'p']));
@@ -57,11 +43,9 @@ describe('matches', function() {
     assert(!matches(p, [document.body, 'span']));
   });
 
-
-  it('handles invalid inputs gracefully', function() {
+  it('handles invalid inputs gracefully', () => {
     assert(!matches());
     assert(!matches(fixtures, null));
     assert(!matches(document, '*'));
   });
-
 });
