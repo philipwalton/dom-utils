@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 0.5.0 (December 31, 2016)
+
+* Convert all code to ES2015
+
 ### 0.4.1 (October 21, 2016)
 
 * Fix IE parseUrl bug for relative paths
