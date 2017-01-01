@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 0.6.0 (January 1, 2017)
+
+* Add an index entry for easier importing
+
 ### 0.5.0 (December 31, 2016)
 
 * Convert all code to ES2015
