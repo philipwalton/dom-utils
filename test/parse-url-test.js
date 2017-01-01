@@ -1,5 +1,5 @@
 import assert from 'assert';
-import parseUrl from '../lib/parse-url';
+import {parseUrl} from '..';
 
 
 describe('parseUrl', () => {

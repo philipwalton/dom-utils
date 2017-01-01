@@ -1,5 +1,5 @@
 import assert from 'assert';
-import matches from '../lib/matches';
+import {matches} from '..';
 
 
 describe('matches', () => {

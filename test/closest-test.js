@@ -1,5 +1,5 @@
 import assert from 'assert';
-import closest from '../lib/closest';
+import {closest} from '..';
 
 
 describe('closest', () => {

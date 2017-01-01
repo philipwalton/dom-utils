@@ -1,6 +1,6 @@
 import assert from 'assert';
 import sinon from 'sinon';
-import dispatch from '../lib/dispatch';
+import {dispatch} from '..';
 
 
 /* eslint no-invalid-this: 0 */

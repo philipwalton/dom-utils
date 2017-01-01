@@ -1,5 +1,5 @@
 import assert from 'assert';
-import parents from '../lib/parents';
+import {parents} from '..';
 
 
 describe('parents', () => {

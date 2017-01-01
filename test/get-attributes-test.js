@@ -1,5 +1,5 @@
 import assert from 'assert';
-import getAttributes from '../lib/get-attributes';
+import {getAttributes} from '..';
 
 
 describe('getAttributes', () => {
