@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 0.7.0 (January 3, 2017)
+
+* Update type annotations for compatibility with closure compiler
+
 ### 0.6.0 (January 1, 2017)
 
 * Add an index entry for easier importing
