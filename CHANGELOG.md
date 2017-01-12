@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 0.8.0 (January 11, 2017)
+
+* Add stricter types and clarify default params
+
 ### 0.7.0 (January 3, 2017)
 
 * Update type annotations for compatibility with closure compiler
