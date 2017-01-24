@@ -8,17 +8,14 @@ describe('parseUrl', () => {
         'https://www.example.com:1234/path/to/file.html?a=b&c=d#hash');
 
     assert.deepEqual(url, {
-      fragment: 'hash',
       hash: '#hash',
       host: 'www.example.com:1234',
       hostname: 'www.example.com',
       href: 'https://www.example.com:1234/path/to/file.html?a=b&c=d#hash',
       origin: 'https://www.example.com:1234',
-      path: '/path/to/file.html?a=b&c=d',
       pathname: '/path/to/file.html',
       port: '1234',
       protocol: 'https:',
-      query: 'a=b&c=d',
       search: '?a=b&c=d',
     });
   });
@@ -27,17 +24,14 @@ describe('parseUrl', () => {
     const url = parseUrl('http://example.com');
 
     assert.deepEqual(url, {
-      fragment: '',
       hash: '',
       host: 'example.com',
       hostname: 'example.com',
       href: 'http://example.com/', // Note the trailing slash.
       origin: 'http://example.com',
-      path: '/',
       pathname: '/',
       port: '',
       protocol: 'http:',
-      query: '',
       search: '',
     });
   });
@@ -46,11 +40,8 @@ describe('parseUrl', () => {
     const url = parseUrl('/path/to/file.html?a=b&c=d#hash');
 
     // Specified portions of the URL.
-    assert.equal(url.fragment, 'hash');
     assert.equal(url.hash, '#hash');
-    assert.equal(url.path, '/path/to/file.html?a=b&c=d');
     assert.equal(url.pathname, '/path/to/file.html');
-    assert.equal(url.query, 'a=b&c=d');
     assert.equal(url.search, '?a=b&c=d');
 
     // Non-specified portions of the URL should match `window.location`.
@@ -74,11 +65,8 @@ describe('parseUrl', () => {
         .replace(/test\/(index\.html)?/, '') + 'path/to/file.html';
 
     // Specified portions of the URL.
-    assert.equal(url.fragment, 'hash');
     assert.equal(url.hash, '#hash');
-    assert.equal(url.path, pathname + '?a=b&c=d');
     assert.equal(url.pathname, pathname);
-    assert.equal(url.query, 'a=b&c=d');
     assert.equal(url.search, '?a=b&c=d');
 
     // Non-specified portions of the URL should match `window.location`.
@@ -118,11 +106,8 @@ describe('parseUrl', () => {
     const url = parseUrl();
 
     // Assumes the tests are hosted at `/test/`;
-    assert.equal(url.fragment, '');
     assert.equal(url.hash, location.hash);
-    assert.equal(url.path, location.pathname + location.search);
     assert.equal(url.pathname, location.pathname);
-    assert.equal(url.query, '');
     assert.equal(url.search, location.search);
 
     // Non-specified portions of the URL should match `window.location`.
