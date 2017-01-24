@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 0.9.0 (January 24, 2017)
+
+* Remove non-standard properties from the parseUrl location objecct
+
 ### 0.8.0 (January 11, 2017)
 
 * Add stricter types and clarify default params
