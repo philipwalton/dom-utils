@@ -15,8 +15,12 @@
     "modular",
     "amd"
   ],
-  "author": "Philip Walton",
-  "license": "MIT",
+  "author": {
+    "name": "Philip Walton",
+    "email": "philip@philipwalton.com",
+    "url": "http://philipwalton.com"
+  },
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/philipwalton/dom-utils/issues"
   },
