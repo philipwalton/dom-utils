@@ -9,3 +9,6 @@ sauce.sh
 # npm stuff
 node_modules
 npm-debug.log
+
+# build files
+dist
